@@ -1,0 +1,114 @@
+- id: '1645792539683'
+  alias: Ac power off
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: input_boolean.on_off_ac
+    from: 'on'
+    to: 'off'
+  condition: []
+  action:
+  - device_id: afd9ef7c6f698e86f51ab05662153e9b
+    domain: climate
+    entity_id: climate.panasonic_sala
+    type: set_hvac_mode
+    hvac_mode: 'off'
+  - device_id: da1cb3ea8655d70135f3a64230e4a129
+    domain: climate
+    entity_id: climate.panasonic_camera
+    type: set_hvac_mode
+    hvac_mode: 'off'
+  - device_id: ded249cf099e198cdf8627a08c1714a6
+    domain: climate
+    entity_id: climate.panasonic_camera_2
+    type: set_hvac_mode
+    hvac_mode: 'off'
+  mode: single
+  
+- id: '1647084941079'
+  alias: Automatic ac power on
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.cond_on_5min
+    from: 'off'
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: input_boolean.ac_automations
+    state: 'on'
+  action:
+  - service: input_boolean.turn_on
+    target:
+      entity_id: input_boolean.on_off_ac
+  mode: single
+  
+- id: '1647085086749'
+  alias: Automatic ac power off
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.lowcurrent_10min
+    from: 'off'
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: input_boolean.ac_automations
+    state: 'on'
+  action:
+  - service: input_boolean.turn_off
+    target:
+      entity_id: input_boolean.on_off_ac
+  mode: single
+
+- id: '1647087606051'
+  alias: Ac power on
+  description: 'We power on all the ac units based on the two input_select, 
+    one for the temperature and the other for the mode'
+  trigger:
+  - platform: state
+    entity_id: input_boolean.on_off_ac
+    from: 'off'
+    to: 'on'
+  condition: []
+  action:
+  - service: climate.set_hvac_mode
+    entity_id: climate.panasonic_sala
+    data:
+      hvac_mode: "{% if is_state(\"input_select.modalita\", \"caldo\") %}\n  heat\n\
+        {% elif is_state(\"input_select.modalita\", \"freddo\") %}\n  cool\n{% elif\
+        \ is_state(\"input_select.modalita\", \"secco\") %}\n  dry\n{% elif is_state(\"\
+        input_select.modalita\", \"automatico\") %}\n  heat_cool\n{% elif is_state(\"\
+        input_select.modalita\", \"solo ventilatore\") %}\n  fan_only\n{% endif %}\n"
+  - service: climate.set_hvac_mode
+    entity_id: climate.panasonic_camera
+    data:
+      hvac_mode: "{% if is_state(\"input_select.modalita\", \"caldo\") %}\n  heat\n\
+        {% elif is_state(\"input_select.modalita\", \"freddo\") %}\n  cool\n{% elif\
+        \ is_state(\"input_select.modalita\", \"secco\") %}\n  dry\n{% elif is_state(\"\
+        input_select.modalita\", \"automatico\") %}\n  heat_cool\n{% elif is_state(\"\
+        input_select.modalita\", \"solo ventilatore\") %}\n  fan_only\n{% endif %}\n"
+  - service: climate.set_hvac_mode
+    entity_id: climate.panasonic_camera_2
+    data:
+      hvac_mode: "{% if is_state(\"input_select.modalita\", \"caldo\") %}\n  heat\n\
+        {% elif is_state(\"input_select.modalita\", \"freddo\") %}\n  cool\n{% elif\
+        \ is_state(\"input_select.modalita\", \"secco\") %}\n  dry\n{% elif is_state(\"\
+        input_select.modalita\", \"automatico\") %}\n  heat_cool\n{% elif is_state(\"\
+        input_select.modalita\", \"solo ventilatore\") %}\n  fan_only\n{% endif %}\n"
+  - service: climate.set_temperature
+    target:
+      entity_id: climate.panasonic_sala
+    data:
+      temperature: '{{states(''input_number.temperatura_condizionatori'')}}'
+  - service: climate.set_temperature
+    target:
+      entity_id: climate.panasonic_camera
+    data:
+      temperature: '{{states(''input_number.temperatura_condizionatori'')}}'
+  - service: climate.set_temperature
+    target:
+      entity_id: climate.panasonic_camera_2
+    data:
+      temperature: '{{states(''input_number.temperatura_condizionatori'')}}'
+  mode: single
