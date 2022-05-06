@@ -41,10 +41,10 @@
     above: '3100'
   condition:
   - condition: state
-    entity_id: switch.interruttore_boiler
+    entity_id: switch.switch_boiler
     state: 'on'
   - condition: state
-    entity_id: input_boolean.automazioni_boiler
+    entity_id: input_boolean.automation_boiler
     state: 'on'
   action:
   - type: turn_off
@@ -57,18 +57,18 @@
   description: ''
   trigger:
   - platform: numeric_state
-    entity_id: sensor.differenza_potenza
+    entity_id: sensor.power_difference
     below: '-250'
   condition:
   - condition: state
-    entity_id: switch.interruttore_boiler
+    entity_id: switch.switch_boiler
     state: 'on'
   - condition: state
-    entity_id: input_boolean.automazioni_boiler
+    entity_id: input_boolean.automation_boiler
     state: 'on'
   action:
   - type: turn_off
     device_id: 68152b6869280c61c08bc1c6b7c1d404
-    entity_id: switch.interruttore_boiler
+    entity_id: switch.switch_boiler
     domain: switch
   mode: single
