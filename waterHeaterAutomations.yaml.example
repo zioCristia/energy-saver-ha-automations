@@ -1,0 +1,74 @@
+- id: '1640205176027'
+  alias: Water heater power on
+  description: Automation that allows us to turn on and off the boiler according 
+    to the current we produce with the photovoltaic system to which we 
+    subtract the one used by the house.
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.power_difference
+    above: '1000'
+  - platform: numeric_state
+    entity_id: sensor.home_power
+    below: '1750'
+  condition:
+  - condition: numeric_state
+    entity_id: sensor.home_power
+    below: '1750'
+  - condition: state
+    entity_id: switch.switch_boiler
+    state: 'off'
+  - condition: numeric_state
+    entity_id: sensor.power_difference
+    above: '1000'
+  - condition: state
+    entity_id: binary_sensor.boil_off_1min
+    state: 'on'
+  - condition: state
+    entity_id: input_boolean.automazioni_boiler
+    state: 'on'
+  action:
+  - type: turn_on
+    device_id: 68152b6869280c61c08bc1c6b7c1d404
+    entity_id: switch.switch_boiler
+    domain: switch
+  mode: single
+- id: '1640874461166'
+  alias: Water heater power off 
+  description: 'We turn off the water heater when we consume more than 3100W in the house so as to avoid the general power cut.'
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.home_power
+    above: '3100'
+  condition:
+  - condition: state
+    entity_id: switch.interruttore_boiler
+    state: 'on'
+  - condition: state
+    entity_id: input_boolean.automazioni_boiler
+    state: 'on'
+  action:
+  - type: turn_off
+    device_id: 68152b6869280c61c08bc1c6b7c1d404
+    entity_id: switch.interruttore_boiler
+    domain: switch
+  mode: single
+- id: '1641921739360'
+  alias: Spegnimento boiler
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.differenza_potenza
+    below: '-250'
+  condition:
+  - condition: state
+    entity_id: switch.interruttore_boiler
+    state: 'on'
+  - condition: state
+    entity_id: input_boolean.automazioni_boiler
+    state: 'on'
+  action:
+  - type: turn_off
+    device_id: 68152b6869280c61c08bc1c6b7c1d404
+    entity_id: switch.interruttore_boiler
+    domain: switch
+  mode: single
