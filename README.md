@@ -13,5 +13,20 @@ The goal is to use as much energy as possible produced by the PV system since I 
 Therefore I activate (or deactivate) the devices when I produce (not produce) enough energy.
 
 # Air conditioners automations
+I have 3 different air conditioner units in my home and to control them all at the same time I created 4 different automations for the air conditioners:
+* [Ac power off](###ac-power-off)
+* [Ac power on](###ac-power-on)
+* [Automatica ac power on](###automatic-ac-power-on)
+* [Automatica ac power on](###automatic-ac-power-off)
+
+Please see the file [airConditionersAutomations.yaml.example](/airConditionersAutomations.yaml.example) for the complete yaml.
+
+### Ac power on
+
+### Ac power off
+
+### Automatic ac power on
+
+### Automatic ac power off
 
 # Water heater automations
