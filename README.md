@@ -12,6 +12,8 @@ These automations are made possible thanks to the other EspHome devices I create
 The goal is to use as much energy as possible produced by the PV system since I don't have a storage battery for the house.
 Therefore I activate (or deactivate) the devices when I produce (not produce) enough energy.
 
+In the [configuration.yaml.example](/configuration.yaml.example) we can see some components which I have added to the configuratin.yaml file of my home assistant to allows the creation of the automations.
+
 # Air conditioners automations
 I have 3 different air conditioner units in my home and to control them all at the same time I created 4 different automations for the air conditioners:
 * [Ac power off](###ac-power-off)
