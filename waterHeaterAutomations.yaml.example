@@ -32,9 +32,11 @@
     entity_id: switch.switch_boiler
     domain: switch
   mode: single
+  
 - id: '1640874461166'
-  alias: Water heater power off 
-  description: 'We turn off the water heater when we consume more than 3100W in the house so as to avoid the general power cut.'
+  alias: Water heater power off overpower
+  description: 'We turn off the water heater when we consume more than 3100W 
+    in the house so as to avoid the general power cut.'
   trigger:
   - platform: numeric_state
     entity_id: sensor.home_power
@@ -52,9 +54,10 @@
     entity_id: switch.interruttore_boiler
     domain: switch
   mode: single
+  
 - id: '1641921739360'
-  alias: Spegnimento boiler
-  description: ''
+  alias: Water heater power off
+  description: 'We turn off the water heater when the power difference (IN-OUT) is less than -250W'
   trigger:
   - platform: numeric_state
     entity_id: sensor.power_difference
