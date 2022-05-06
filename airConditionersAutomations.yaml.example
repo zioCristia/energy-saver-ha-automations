@@ -30,7 +30,7 @@
   description: ''
   trigger:
   - platform: state
-    entity_id: binary_sensor.cond_on_5min
+    entity_id: binary_sensor.ac_on_5min
     from: 'off'
     to: 'on'
   condition:
