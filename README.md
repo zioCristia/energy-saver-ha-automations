@@ -18,12 +18,68 @@ In the [configuration.yaml.example](/configuration.yaml.example) we can see some
 I have 3 different air conditioner units in my home and to control them all at the same time I created 4 different automations for the air conditioners:
 * [Ac power off](###ac-power-off)
 * [Ac power on](###ac-power-on)
-* [Automatica ac power on](###automatic-ac-power-on)
-* [Automatica ac power on](###automatic-ac-power-off)
+* [Automatic ac power on](###automatic-ac-power-on)
+* [Automatic ac power on](###automatic-ac-power-off)
 
 Please see the file [airConditionersAutomations.yaml.example](/airConditionersAutomations.yaml.example) for the complete yaml.
 
 ### Ac power on
+This automation is used to turn on all the ac units with the same setted temperature and setted mode. This is done by taking into consideration the option choosen in an input select for the ac mode, and an input number for set temperature. The trigger of the automation is an input boolean, specifically when it switches from off to on. In this way I can either turn on all by clicking in a button or let an automation do it.
+
+Here is the complete YAML code:
+```
+- id: '1647087606051'
+  alias: Ac power on
+  description: 'We power on all the ac units based on the two input_select, 
+    one for the temperature and the other for the mode'
+  trigger:
+  - platform: state
+    entity_id: input_boolean.on_off_ac
+    from: 'off'
+    to: 'on'
+  condition: []
+  action:
+  - service: climate.set_hvac_mode
+    entity_id: climate.panasonic_sala
+    data:
+      hvac_mode: "{% if is_state(\"input_select.modalita\", \"caldo\") %}\n  heat\n\
+        {% elif is_state(\"input_select.modalita\", \"freddo\") %}\n  cool\n{% elif\
+        \ is_state(\"input_select.modalita\", \"secco\") %}\n  dry\n{% elif is_state(\"\
+        input_select.modalita\", \"automatico\") %}\n  heat_cool\n{% elif is_state(\"\
+        input_select.modalita\", \"solo ventilatore\") %}\n  fan_only\n{% endif %}\n"
+  - service: climate.set_hvac_mode
+    entity_id: climate.panasonic_camera
+    data:
+      hvac_mode: "{% if is_state(\"input_select.modalita\", \"caldo\") %}\n  heat\n\
+        {% elif is_state(\"input_select.modalita\", \"freddo\") %}\n  cool\n{% elif\
+        \ is_state(\"input_select.modalita\", \"secco\") %}\n  dry\n{% elif is_state(\"\
+        input_select.modalita\", \"automatico\") %}\n  heat_cool\n{% elif is_state(\"\
+        input_select.modalita\", \"solo ventilatore\") %}\n  fan_only\n{% endif %}\n"
+  - service: climate.set_hvac_mode
+    entity_id: climate.panasonic_camera_2
+    data:
+      hvac_mode: "{% if is_state(\"input_select.modalita\", \"caldo\") %}\n  heat\n\
+        {% elif is_state(\"input_select.modalita\", \"freddo\") %}\n  cool\n{% elif\
+        \ is_state(\"input_select.modalita\", \"secco\") %}\n  dry\n{% elif is_state(\"\
+        input_select.modalita\", \"automatico\") %}\n  heat_cool\n{% elif is_state(\"\
+        input_select.modalita\", \"solo ventilatore\") %}\n  fan_only\n{% endif %}\n"
+  - service: climate.set_temperature
+    target:
+      entity_id: climate.panasonic_sala
+    data:
+      temperature: '{{states(''input_number.temperatura_condizionatori'')}}'
+  - service: climate.set_temperature
+    target:
+      entity_id: climate.panasonic_camera
+    data:
+      temperature: '{{states(''input_number.temperatura_condizionatori'')}}'
+  - service: climate.set_temperature
+    target:
+      entity_id: climate.panasonic_camera_2
+    data:
+      temperature: '{{states(''input_number.temperatura_condizionatori'')}}'
+  mode: single
+```
 
 ### Ac power off
 
