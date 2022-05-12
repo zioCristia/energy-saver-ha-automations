@@ -1,5 +1,6 @@
 # Energy saver Home Assistant automations
-Home assistant automations created to maximise the use of solar power in my home to control the air conditioners and the water heater.
+Home assistant automations created to maximise the use of solar power in my home to control the air conditioners and the water heater. 
+Any possibility of improvement is accepted.
 
 ## Table of contenets
 * [General info](#general-info)
