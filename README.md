@@ -5,14 +5,14 @@ Any possibility of improvement is accepted.
 ## Table of contenets
 * [General info](#general-info)
 * [Air conditioners automations](#air-conditioners-automations)
-  * [Ac power off](###ac-power-off)
-  * [Ac power on](###ac-power-on)
-  * [Automatic ac power on](###automatic-ac-power-on)
-  * [Automatic ac power off](###automatic-ac-power-off)  
+  * [Ac power off](#ac-power-off)
+  * [Ac power on](#ac-power-on)
+  * [Automatic ac power on](#automatic-ac-power-on)
+  * [Automatic ac power off](#automatic-ac-power-off)  
 * [Water heater automations](#water-heater-automations)
-  * [Wh power on](###wh-power-on)
-  * [Wh power off](###wh-power-off)
-  * [Wh power off overpower](###wh-power-off-overpower)
+  * [Wh power on](#wh-power-on)
+  * [Wh power off](#wh-power-off)
+  * [Wh power off overpower](#wh-power-off-overpower)
 
 # General info
 These automations are made possible thanks to the other EspHome devices I created ([esp-energy-monitor](https://github.com/zioCristia/esp-energy-monitor) and [esp-smart-water-heater](https://github.com/zioCristia/esp-smart-water-heater)) and the [DomyStyle](https://github.com/DomiStyle) guide [esphome-panasonic-ac](https://github.com/DomiStyle/esphome-panasonic-ac).
