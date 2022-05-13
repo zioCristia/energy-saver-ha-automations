@@ -272,9 +272,58 @@ Here is the complete automation code:
 ```
 
 ### Wh power off
+This is the automation that will turn off the water heater when we don't produce any more enought power from the solar panels. We consider always the `sensor.power_difference` to take into account any other consumption in the house such as washing machine, dishwasher, etc...
+
+The trigger action is the `sensor.power_difference` below -250W to consider fluctuations due to both the power of the house and the power of the sun.
+
+The code is the following:
+
 ```
+- id: '1641921739360'
+  alias: Water heater power off
+  description: 'We turn off the water heater when the power difference (IN-OUT) is less than -250W'
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.power_difference
+    below: '-250'
+  condition:
+  - condition: state
+    entity_id: switch.switch_boiler
+    state: 'on'
+  - condition: state
+    entity_id: input_boolean.automation_boiler
+    state: 'on'
+  action:
+  - type: turn_off
+    device_id: 68152b6869280c61c08bc1c6b7c1d404
+    entity_id: switch.switch_boiler
+    domain: switch
+  mode: single
 ```
 
 ### Wh power off overpower
+The last automation is used to turn off the water heater when, although we produce enough power from the solar panels, we exceed the maximum usable power limit of the house. 
+This is precisely 3000W, but 3100W was used to have a greater margin to fluctuations.
 ```
+- id: '1640874461166'
+  alias: Water heater power off overpower
+  description: 'We turn off the water heater when we consume more than 3100W 
+    in the house so as to avoid the general power cut.'
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.home_power
+    above: '3100'
+  condition:
+  - condition: state
+    entity_id: switch.switch_boiler
+    state: 'on'
+  - condition: state
+    entity_id: input_boolean.automation_boiler
+    state: 'on'
+  action:
+  - type: turn_off
+    device_id: 68152b6869280c61c08bc1c6b7c1d404
+    entity_id: switch.interruttore_boiler
+    domain: switch
+  mode: single
 ```
