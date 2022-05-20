@@ -33,6 +33,9 @@ I can either turn the ac units on/off by click in a button or let the automation
 
 Please see the file [airConditionersAutomations.yaml.example](/airConditionersAutomations.yaml.example) for the complete yaml or read the followings sub-chapters for more informations.
 
+![alt text](/images/ac-view.jpg)
+![alt text](/images/ac-view-detail.jpg)
+
 ### Ac power on
 This automation is used to turn on all the ac units with the same setted temperature and setted mode. This is done by taking into consideration the option choosen in an input select for the ac mode, and an input number for set temperature. The trigger of the automation is an input boolean, specifically when it switches from off to on. In this way I can either turn on all by clicking in a button or let an automation do it.
 
@@ -212,6 +215,8 @@ For the water heater I've created 3 differents automations, 2 for switching it o
 * [Wh power off overpower](###wh-power-off-overpower)
 
 They are activated based on the power consumption of the house and the power production of the house so that maximize the use of free power from them. The water heater has a 1200W resistence which I consider to do the automations and the maximum power consumption in my house is 3000W. Of course, these values are corrected to limit the continous trigger of the automations.
+
+![alt text](/images/water-heater-view.jpg)
 
 ### Wh power on
 With this automation I wanted to turn on the boiler automatically when we produce sufficient power from the solar panels and at the same time I want to be sure that turning it on won't exceed the 3kW max power of my home. That's why I have two triggers that will control simultanously the two conditions and whenever one is triggered, we must always respect also the other. In fact, they are both also in the condition paragraph.
