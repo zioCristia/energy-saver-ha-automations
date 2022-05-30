@@ -1,5 +1,5 @@
 # Energy saver Home Assistant automations
-Home assistant automations created to maximise the use of solar power in my home to control the air conditioners and the water heater. 
+Home assistant automations created to maximize the use of solar power in my home to control the air conditioners and the water heater. 
 Any possibility of improvement is accepted.
 
 ## Table of contenets
@@ -20,7 +20,7 @@ These automations are made possible thanks to the other EspHome devices I create
 The goal is to use as much energy as possible produced by the PV system since I don't have a storage battery for the house.
 Therefore I activate (or deactivate) the devices when I produce (not produce) enough energy.
 
-In the [configuration.yaml.example](/configuration.yaml.example) we can see some components which I have added to the configuratin.yaml file of my home assistant to allows the creation of the automations.
+In the [configuration.yaml.example](/configuration.yaml.example) we can see some components which I have added to the configuratin.yaml file of my home assistant to allow the creation of the automations.
 
 # Air conditioners automations
 I have 3 different air conditioner units in my home and to control them all at the same time I created 4 different automations for the air conditioners:
@@ -29,15 +29,15 @@ I have 3 different air conditioner units in my home and to control them all at t
 * [Automatic ac power on](###automatic-ac-power-on)
 * [Automatic ac power off](###automatic-ac-power-off)
 
-I can either turn the ac units on/off by click in a button or let the automations do that when is more energetically convenient (thanks to the third and the fourth one). I've also added a button to disactivate the automatic power on/off.
+I can either turn the ac units on/off by clicking on a button or letting the automations do that when it is more energetically convenient (thanks to the third and the fourth one). I've also added a button to deactivate the automatic power on/off.
 
-Please see the file [airConditionersAutomations.yaml.example](/airConditionersAutomations.yaml.example) for the complete yaml or read the followings sub-chapters for more informations.
+Please see for more information, the file [airConditionersAutomations.yaml.example](/airConditionersAutomations.yaml.example) for the complete yaml or read the following sub-chapters.
 
 ![alt text](/images/ac-view.jpg)
 ![alt text](/images/ac-view-detail.jpg)
 
 ### Ac power on
-This automation is used to turn on all the ac units with the same setted temperature and setted mode. This is done by taking into consideration the option choosen in an input select for the ac mode, and an input number for set temperature. The trigger of the automation is an input boolean, specifically when it switches from off to on. In this way I can either turn on all by clicking in a button or let an automation do it.
+This automation is used to turn on all the ac units with the same set temperature and set mode. This is done by taking into consideration the option chosen in an input select for the ac mode, and an input number for set temperature. The trigger of the automation is an input boolean, specifically when it switches from off to on. In this way I can either turn it on all by clicking on a button or let an automation do it.
 
 Here is the complete YAML code:
 ```
@@ -95,7 +95,7 @@ Here is the complete YAML code:
 ```
 
 ### Ac power off
-This automation just shut off all the three ac units and it's triggered by the same input_boolean of above, when change the state from on to off. As in the previous automation in this way I can either turn on all by clicking in a button or let an automation do it.
+This automation just shuts off all the three ac units and it's triggered by the same input_boolean as above, when change the state from on to off. As in the previous automation, in this way I can either turn on all by clicking on a button or let an automation do it.
 
 Here is the complete YAML code:
 ```
@@ -128,7 +128,7 @@ Here is the complete YAML code:
 ```
 
 ### Automatic ac power on
-This automation allows to automatically turn on the conditioners by switching on the `input_boolean.on_off_ac` which is used as a triggered in the []() automation. This can be done only when the `input_boolean.ac_automationsc` button is on. 
+This automation allows to automatically turn on the conditioners by switching on the `input_boolean.on_off_ac` which is used as a triggered in the [Ac power on](#ac-power-on) automation. This can be done only when the `input_boolean.ac_automationsc` button is on. 
 The trigger is the following custom binary sensor crated (saved in the `configuration.yaml` file as [here](/configuration.yaml.example)):
 ```
 - platform: template
@@ -144,7 +144,7 @@ The trigger is the following custom binary sensor crated (saved in the `configur
         delay_on:
           minutes: 5
 ```
-The sensor switch on whenever we have, for more then 5 minutes, an excess of more than 1800W in the house, calculated as (power in from the solar panels) - (power used in the house) as seen [here](https://github.com/zioCristia/esp-energy-monitor#software). This allows to not continuosly switch on/off the conditioners which is not so good for their preservation.
+The sensor switches on whenever we have, for more than 5 minutes, an excess of more than 1800W in the house, calculated as (power in from the solar panels) - (power used in the house) as seen [here](https://github.com/zioCristia/esp-energy-monitor#software). This allows them to not continuously switch on/off the conditioners which is not so good for their preservation.
 
 Here is the complete YAML code of the automation:
 ```
@@ -168,7 +168,7 @@ Here is the complete YAML code of the automation:
 ```
 
 ### Automatic ac power off
-Finally, this automation turn off automatically the conditioners when we don't produce anymore sufficient power with the solar panels. The trigger element is `binary_sensor.lowcurrent_10min` which switch on when for at least 10 minutes the power difference (in_solar_panels - out_house) is lower then -100W or we don't produce anything from the solar panels.
+Finally, this automation turns off automatically the conditioners when we don't produce anymore sufficient power with the solar panels. The trigger element is `binary_sensor.lowcurrent_10min` which switches on when for at least 10 minutes the power difference (in_solar_panels - out_house) is lower than -100W or we don't produce anything from the solar panels.
 This is the code I have used:
 
 ```
@@ -208,20 +208,20 @@ And here you can see the automation:
 ```
 
 # Water heater automations
-For the water heater I've created 3 differents automations, 2 for switching it off and one for turn it on.
+For the water heater I've created 3 different automations, 2 for switching it off and one for turning it on.
 
 * [Wh power on](###wh-power-on)
 * [Wh power off](###wh-power-off)
 * [Wh power off overpower](###wh-power-off-overpower)
 
-They are activated based on the power consumption of the house and the power production of the house so that maximize the use of free power from them. The water heater has a 1200W resistence which I consider to do the automations and the maximum power consumption in my house is 3000W. Of course, these values are corrected to limit the continous trigger of the automations.
+They are activated based on the power consumption of the house and the power production of the house so that maximize the use of free power from them. The water heater has a 1200W resistance which I consider to do the automation and the maximum power consumption in my house is 3000W. Of course, these values are corrected to limit the continuous trigger of the automations.
 
 ![alt text](/images/water-heater-view.jpg)
 
 ### Wh power on
-With this automation I wanted to turn on the boiler automatically when we produce sufficient power from the solar panels and at the same time I want to be sure that turning it on won't exceed the 3kW max power of my home. That's why I have two triggers that will control simultanously the two conditions and whenever one is triggered, we must always respect also the other. In fact, they are both also in the condition paragraph.
+With this automation I wanted to turn on the boiler automatically when we produce sufficient power from the solar panels and at the same time, I want to be sure that turning it on won't exceed the 3kW max power of my home. That's why I have two triggers that will control simultaneously the two conditions and whenever one is triggered, we must always respect also the other. In fact, they are both also in the condition paragraph.
 
-Moreover, to avoid a continous power on/off of the water heater, I've added a contition where the wh can switch on only if it was off for at least 1 minute. As we will see there is not somthing similar in the power off automations because I want that the boiler is the first to be turned off whenever I exceed the 3000W power production in the house.
+Moreover, to avoid a continuous power on/off of the water heater, I've added a condition where the wh can switch on only if it was off for at least 1 minute. As we will see there is not something similar in the power off automation because I want the boiler to be the first to be turned off whenever I exceed the 3000W power production in the house.
 
 The following is the code for the `inary_sensor.boil_off_1min` used in the condition:
 
@@ -277,7 +277,7 @@ Here is the complete automation code:
 ```
 
 ### Wh power off
-This is the automation that will turn off the water heater when we don't produce any more enought power from the solar panels. We consider always the `sensor.power_difference` to take into account any other consumption in the house such as washing machine, dishwasher, etc...
+This is the automation that will turn off the water heater when we don't produce enough power from the solar panels any more. We consider always the `sensor.power_difference` to take into account any other consumption in the house such as washing machine, dishwasher, etc...
 
 The trigger action is the `sensor.power_difference` below -250W to consider fluctuations due to both the power of the house and the power of the sun.
 
