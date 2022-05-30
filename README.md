@@ -2,7 +2,7 @@
 Home assistant automations created to maximize the use of solar power in my home to control the air conditioners and the water heater. 
 Any possibility of improvement is accepted.
 
-## Table of contenets
+## Table of contents
 * [General info](#general-info)
 * [Air conditioners automations](#air-conditioners-automations)
   * [Ac power off](#ac-power-off)
